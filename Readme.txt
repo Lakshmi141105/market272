@@ -7,11 +7,24 @@ DB creds are in marketdbconnector.php file
 our market url would be like this: http://localhost/soulfulart/marketlogin.php
 
 or http://www.soulfulart.ml/marketlogin/php(once deployed)
+for now its deployed here temporarily:
+http://myphpworld-env.eba-v47gj2kf.us-west-2.elasticbeanstalk.com/markethomepage.php
+existing user :
+username:admin
+password:admin
+
+fblogin creds:
+1. phonenumber:9398086316
+2. password:fblogin@272
+
+it works only with http:localhost for now as ssl bindings arent available for us so you can check it in your local
 
 Market code is updated here
 
 Once a user logs-in and selects the individual website a user id is passed to individual websites as query string.
 Please read and save it for further usage
+
+1. add your product image and link in markethomepage.php file
 
 Make 2 DB calls
 
