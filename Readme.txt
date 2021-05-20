@@ -2,7 +2,13 @@ Thanks for downloading this template!
 
 Template Name: Soulful Art
 
-MArket code is updated here
+DB creds are in marketdbconnector.php file
+
+our market url would be like this: http://localhost/soulfulart/marketlogin.php
+
+or http://www.soulfulart.ml/marketlogin/php(once deployed)
+
+Market code is updated here
 
 Once a user logs-in and selects the individual website a user id is passed to individual websites as query string.
 Please read and save it for further usage
