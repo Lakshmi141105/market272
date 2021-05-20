@@ -1,0 +1,1 @@
+../../assets/img/moods/angry/angry1.jpg;../../assets/img/moods/angry/angry2.jpg;../../assets/img/moods/angry/angry3.jpg;../../assets/img/moods/angry/angry4.jpg;../../assets/img/moods/angry/angry5.jpg;../../assets/img/moods/angry/angry6.jpg;../../assets/img/moods/angry/angry7.jpg;../../assets/img/moods/angry/angry8.jpg;../../assets/img/moods/angry/angry9.jpg
