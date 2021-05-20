@@ -30,6 +30,7 @@ Make 2 DB calls
 
 1. One for products table ratign ,review insertion
 2. One for producthits insertion
+3. there is a userstatus table which has user status
 
 1. One for products table ratign ,review insertion-insert it this way
 INSERT INTO marketplace.products(prodid,type,rating,review,userid,productname,hits) VALUES($prodid,'soulfulart',$rating,'$review',$userid,'$productname',$hits)";
@@ -51,6 +52,10 @@ mhits - first read hits using this query then increment it by 1 and send it
 SELECT * from marketplace.producthits where prodid=$id and type='soulfulart';
 name - your product name as in we have 10 products so yu can chose your product names for your identification 
 page - the navigation link to your product ( suppose your product1 is reviewed/rated send that product1 page link so that we can show the link to navigate to that product again in top ratings page
+
+3. check for user status when a user clicks on products so that if its logged out in marketplace you can redirect to error page asking the user to login again
+
+SELECT * from marketplace.userstatus where userid=$id;
 
 
 
