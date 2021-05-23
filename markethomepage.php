@@ -52,11 +52,11 @@ if ($sqluserres->num_rows >0)
                     <!-- <a  target="_blank"  href="http://localhost/soulfulart/products.php?id='.$userid.'" tabindex="-1">One stop portal for all types of creative paintings</a>';?> -->
                             <div class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 2850px; transform: translate3d(-570px, 0px, 0px);"><div class="col-md-6 slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" tabindex="-1" style="width: 570px;">
                                 <div class="tn-img">
-                                    <img width="540" height="302" src="assets/img/news/pandemicgallery.jpg">
+                                    <img width="540" height="302" src="assets/img/pandemicgallery.jpg">
                                     <div class="tn-title">
                                     <?php
                                     echo '
-                                    <a  target="_blank"  href="http://localhost/soulfulart/products.php?id='.$ciphertext.'&tag='.bin2hex($tag).'&iv='.bin2hex($iv).'" tabindex="-1">One stop portal for all types of creative paintings</a>';?>
+                                    <a  target="_blank"  href="http://localhost/soulfulart/products.php?id='.urlencode($ciphertext).'" tabindex="-1">One stop portal for all types of creative paintings</a>';?>
                                        
                                     </div>
                                 </div>
@@ -64,11 +64,11 @@ if ($sqluserres->num_rows >0)
                          
                             <div class="col-md-6 slick-slide slick-cloned" data-slick-index="3" aria-hidden="true" tabindex="-1" style="width: 570px;">
                                 <div class="tn-img">
-                                    <img width="540" height="302" src="assets/img/news/pandemicgallery.jpg">
+                                    <img width="540" height="302" src="assets/img/pandemicgallery.jpg">
                                     <div class="tn-title">
                                     <?php
                                     echo '
-                                    <a  target="_blank"  href="http://localhost/soulfulart/products.php?id='.$ciphertext.'&tag='.bin2hex($tag).'&iv='.bin2hex($iv).'" tabindex="-1">One stop portal for all types of creative paintings</a>';?>
+                                    <a  target="_blank"  href="http://localhost/soulfulart/products.php?id='.urlencode($ciphertext).'" tabindex="-1">One stop portal for all types of creative paintings</a>';?>
                                     </div>
                                 </div>
                             </div></div></div>
@@ -87,7 +87,7 @@ if ($sqluserres->num_rows >0)
                                     <div class="tn-title">
                                     <?php
                                     echo '
-                                        <a  target="_blank" href="http://lightmore.ml/Menu/Menu_list.html?id='.$ciphertext.'" tabindex="-1">Find all the food related things here</a>';?>
+                                        <a  target="_blank" href="http://lightmore.ml/Menu/Menu_list.html?id='.urlencode($ciphertext).'" tabindex="-1">Find all the food related things here</a>';?>
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +99,7 @@ if ($sqluserres->num_rows >0)
                                     <div class="tn-title">
                                     <?php
                                     echo '
-                                    <a target="_blank" href="http://lightmore.ml/Menu/Menu_list.html?id='.$ciphertext.'" tabindex="-1">Find all the food related things here</a>';?>
+                                    <a target="_blank" href="http://lightmore.ml/Menu/Menu_list.html?id='.urlencode($ciphertext).'" tabindex="-1">Find all the food related things here</a>';?>
                                     </div>
                                 </div>
                             </div></div></div>
