@@ -29,6 +29,7 @@ if ($sqluserres->num_rows >0)
         $ivlen = openssl_cipher_iv_length($cipher);
         $iv = openssl_random_pseudo_bytes($ivlen);        
         $ciphertext = openssl_encrypt($sessionid, $cipher, $key, $options=0, $iv,$tag);
+        echo $ciphertext;
         echo "tag: ".bin2hex($tag)."<br>" . PHP_EOL;
         $tags=bin2hex($tag);
         $ivs=bin2hex($iv);
