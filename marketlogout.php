@@ -5,7 +5,7 @@
    $userid=$_SESSION["uid"];
    date_default_timezone_set('Asia/Kolkata');
    $date = date('d-m-y h:i:s');
-   $sql="UPDATE marketplace.userstatus set status='inactive',logouttime='$date' where userid=$userid;";
+   $sql="UPDATE marketplace.userstatus set status='inactive',logouttime='$date',sessionid='' where userid=$userid;";
    $res=$conn->query($sql);       
    $conn->close();
    unset($_SESSION["uname"]);  
@@ -13,13 +13,7 @@
    header("location: ./marketlogin.php");
    exit();
 ?>
-
-
 <!-- Wrapper -->
-
-
-
-
     <div id="main">
         <section>
             <form method="get" action="login.html">
