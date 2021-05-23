@@ -1,5 +1,0 @@
-Lakshmi,Priya
-Mary,Smith
-John,Wang
-Alex,Bington
-Adam,Fernandez
