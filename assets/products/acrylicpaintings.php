@@ -1,7 +1,8 @@
 <?php require "products-header.php" ?>
 <?php
-if(isset( $_REQUEST['id']))
-$id =htmlentities( $_REQUEST['id']);
+if(isset($_COOKIE['userid']))
+$id=$_COOKIE['userid'];
+//$id =htmlentities( $_REQUEST['id']);
 ?>
 <section id="portfolio" class="portfolio">
       <div class="container" data-aos="fade-up">

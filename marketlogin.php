@@ -34,28 +34,48 @@ include('facebook-login/facebook-login-setup.php');
                 }
                 echo $uname;
                 echo $passwd;
-                $sql = "SELECT first_name, password,id FROM marketplace.user WHERE username = '$uname' and password = '$passwd'";
+                $sql = "SELECT username,first_name, password,id FROM marketplace.user WHERE username = '$uname'";
                 $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                      $msg = "found";
-                      $error="";     
-                        $ur=$result->fetch_assoc();                   
-                        date_default_timezone_set('Asia/Kolkata');
-                        $date = date('d-m-y h:i:s');
-                        echo "whats";
-                        $userid=$ur["id"];
-                        echo $userid;
-                        $sqlus="UPDATE marketplace.userstatus set status='active',logintime='$date' where userid=$userid;";
-                        $res=$conn->query($sqlus);  
-                        print_r($res);     
-                        //$conn->close();
-                      //print($msg);
-                      $_SESSION["uname"] = $uname;
-                      $_SESSION["uid"] = $ur["id"];
-                      $msg= "Welcome ". $_SESSION["uname"]."! "; 
-                      //echo $_SESSION["uname"];
-                      header("location: ./markethomepage.php");
-                      exit();               
+                $ur=$result->fetch_assoc();     
+                if ($result->num_rows > 0 && $ur["username"]==$uname && password_verify($passwd, $ur["password"]) )  {
+                      $msg = "found";                      
+                          //date_default_timezone_set('Asia/Kolkata');
+                          //$date = date('d-m-y h:i:s');
+                          echo "whats";
+                          $userid=$ur["id"];
+                          //echo $userid;
+                          $guid=createGUID();
+                          echo $guid;
+                          $sqlusstatus="SELECT * FROM marketplace.userstatus where userid=$userid;";
+                          $sqluserstatusres=$conn->query($sqlusstatus);  
+                          // print_r($res);     
+                            //$conn->close();
+                          //print($msg);
+                          date_default_timezone_set('Asia/Kolkata');
+                          $date = date('d-m-y h:i:s');
+                          if($sqluserstatusres->num_rows>0)
+                          {
+                            $sqlustatus="UPDATE marketplace.userstatus set status='active',logintime='$date',sessionid='$guid' where userid=$userid;";                          
+                          }
+                          else{
+                            $sqlustatus = "INSERT INTO marketplace.userstatus VALUES  ($userid,'$uname','$date','$date','active','$guid')";
+                            
+                          }
+                          echo "wats this";
+                          $sres=$conn->query($sqlustatus);
+                          print_r($sres);                         
+                          $_SESSION["uname"] = $uname;
+                          $_SESSION["uid"] = $ur["id"];
+                          $msg= "Welcome ". $_SESSION["uname"]."! "; 
+                          if ($sres=== TRUE) {
+                        
+                            header("location: ./markethomepage.php");
+                            exit();      
+                          }
+                          //$error="";
+                         // //echo $_SESSION["uname"];
+                        
+                            
                 }else{
                   $error="Invalid credentials!";
                 } 
@@ -68,6 +88,31 @@ include('facebook-login/facebook-login-setup.php');
               $data = stripslashes($data);
               $data = htmlspecialchars($data);
               return $data;
+        }
+        function createGUID()
+        {
+          if (function_exists('com_create_guid'))
+          {
+            return com_create_guid();
+          }
+          else
+          {
+            mt_srand((double)microtime()*10000);
+            //optional for php 4.2.0 and up.
+            $set_charid = strtoupper(md5(uniqid(rand(), true)));
+            $set_hyphen = chr(45);
+            $set_uuid="";
+            // "-"
+            $set_uuid = $set_uuid
+            .substr($set_charid, 0, 8).$set_hyphen
+            .substr($set_charid, 8, 4).$set_hyphen
+            .substr($set_charid,12, 4).$set_hyphen
+            .substr($set_charid,16, 4).$set_hyphen
+            .substr($set_charid,20,12);
+            //.chr(125);
+            // "}"
+            return $set_uuid;
+          }
         }
   ?>
 <div class="signup-form" style="padding:0px;">
@@ -91,6 +136,7 @@ include('facebook-login/facebook-login-setup.php');
             <button type="submit"  class="btn btn-success btn-lg btn-block signup-btn">Login</button>
         </div>
         <?php
+      
         if($error!="")
         {
           echo '<label style="color:red;">Invalid Credentials</label>';

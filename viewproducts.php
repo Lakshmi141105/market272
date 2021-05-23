@@ -48,7 +48,7 @@
         $status=$user["status"];
         if($status=="inactive")
         {
-          setcookie("userid", time() - 3600);
+          setcookie("userid","", time() - 3600);
           header("location: error.php");
           exit();
         }
@@ -56,7 +56,7 @@
       $conn->close();
      
     }
-    header("location: assets/products/".$prod['name'].".php?id=$userid");
+    header("location: assets/products/".$prod['name'].".php");
 ?>
 
 

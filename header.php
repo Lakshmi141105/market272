@@ -78,15 +78,15 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a id="home" class="nav-link  " href="index.php"  ><span class="nav-link-sp active">Home</span></a></li>
-          <li><a id="about" class="nav-link " href="about.php" ><span class="nav-link-sp">About</span></a></li>
+          <!-- <li><a id="home" class="nav-link  " href="index.php"  ><span class="nav-link-sp active">Home</span></a></li>
+          <li><a id="about" class="nav-link " href="about.php" ><span class="nav-link-sp">About</span></a></li> -->
           <li><a id="products" class="nav-link " href="products.php" >Products</a></li>         
           <!-- <li><a id="services" class="nav-link " href="services.php" >Services</a></li>          -->
-          <li><a id="news" class="nav-link " href="news.php" >News</a></li>
+          <!-- <li><a id="news" class="nav-link " href="news.php" >News</a></li>
           <li><a id="secure" class="nav-link " href="secure.php" >Secure</a></li>
-          <li><a id="usersection" class="nav-link " href="usersection.php" >User Section</a></li>
+          <li><a id="usersection" class="nav-link " href="usersection.php" >User Section</a></li> -->
           <!-- <li><a id="userlist" class="nav-link " href="userlist.php" >User List</a></li> -->
-          <li><a id="contacts" class="getstarted " href="contacts.php" >Contact Us</a></li>
+          <!-- <li><a id="contacts" class="getstarted " href="contacts.php" >Contact Us</a></li> -->
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->

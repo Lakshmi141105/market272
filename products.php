@@ -2,37 +2,62 @@
 <?php require "header.php" ?>
 <?php require "assets/services/marketdbconnector.php"?>
 <?php
-    $id = $_REQUEST['id'];
-    echo "empty";
-    echo $id;
-    if($id && isset($id))
-    { 
-      echo "here";
-      if(isset($_COOKIE["userid"])){       
-        setcookie("userid",$id,time() + (86400 * 30));   
-              
-      }
-      else{
-          setcookie("userid", $id, time() + (86400 * 30));
-      }
-              //chk the session is active
-      $sql="SELECT * from marketplace.userstatus where userid=$id;";
-      $res=$conn->query($sql);     
+    if(isset($_REQUEST['id']))
+    {
+      $id = $_REQUEST['id'];         
+      $sql="SELECT * from marketplace.encryptiondata where ciphertext='$id';";
+      $res=$conn->query($sql);
+      $sessionid="";
       if($res->num_rows > 0)
-      {
-        $user=$res->fetch_assoc();
-        $status=$user["status"];
-        if($status=="inactive")
+       {    
+        $sres=$res->fetch_assoc();  
+        //echo $sres['tag'];       
+        $tag =hex2bin($sres['tag']); 
+        $iv = hex2bin($sres['iv']);      
+        $key="market";
+        $ciphertext="";
+        //echo $tag;
+        //echo $iv;
+        $cipher = "aes-128-gcm";
+       // $tags="";
+        if (in_array($cipher, openssl_get_cipher_methods()))
         {
-          setcookie("userid", time() - 3600);
+            $ciphertext = $id;          
+            $original_plaintext = openssl_decrypt($id, $cipher, $key, $options=0, $iv,$tag);
+            $sessionid=$original_plaintext;
+           // echo $original_plaintext;//got the session id , now g et the user id with session id
+            //echo $userid;
+        }
+        $sqlu="SELECT * from marketplace.userstatus where sessionid='$sessionid' and status='active';";
+        $resu=$conn->query($sqlu);
+        if($resu->num_rows > 0)
+         {    
+          $sresu=$resu->fetch_assoc();       
+          $userid=$sresu["userid"];
+          echo $userid;
+          setcookie("userid", $userid, time() + (86400 * 30));
+         }
+         else{
+          setcookie("userid","", time() - 3600);
           header("location: error.php");
           exit();
-        }
+       }
+       }      
+      else{
+        setcookie("userid","", time() - 3600);
+         header("location: error.php");
+         exit();
       }
+     
       $conn->close();
      
     }
-    
+    else{   
+      setcookie("userid","", time() - 3600);   
+      header("location: error.php");
+      exit();
+    }
+  
     
 ?>
     <!-- ======= Features Section ======= -->
