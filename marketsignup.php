@@ -60,23 +60,24 @@ include('facebook-login/facebook-login-setup.php');
             if (empty($_POST["password"])) {
                 $passwdErr = "required.";
             } else {
-                $passwd = clean($_POST["password"]);
+                $passwd = clean($_POST["password"]);               
             }
             if (empty($_POST["confirm_password"])) {
                 $confirmpasswdErr = "required.";
             } else {
-                $confirmpasswd = clean($_POST["confirm_password"]);
+                $confirmpasswd = clean($_POST["confirm_password"]);              
             }
             if($passwd!=$confirmpasswd)
             {
                //echo "not matching";
                 //echo "passwords did not macth!"
                 $confirmpasswdErr = "passwords do not match.";
-                return;
+                $submiterr="passwords do not match";
+               // return;
             }
       
             if ($uname != '' && $passwd != '') {
-        
+                $passwd = password_hash($passwd, PASSWORD_DEFAULT);               
                 $conn = new mysqli($servername, $username, $password, $dbname);
                 $msg= "Connected successfully"; 
                 if ($conn->connect_error) {
@@ -87,10 +88,11 @@ include('facebook-login/facebook-login-setup.php');
                 if($userQuery->num_rows > 0)
                 {                  
                     //user exists
-                    $submiterr="Duplicate username";
+                    $submiterr="Username already exists!";
                 }              
                 if($submiterr=="")
-                {
+                {                  
+                    echo  $guid;
                     $sql = "INSERT INTO marketplace.user(first_name, last_name, email, address, home_phone, cell_phone, username, password) VALUES  ('$fname', '$lname', '$emailId', '$address', '$hphone', '$cphone', '$uname', '$passwd')";
 
                     if ($conn->query($sql) === TRUE) {
@@ -101,14 +103,9 @@ include('facebook-login/facebook-login-setup.php');
                             //$data=$sqlproductsres->fetch_assoc();  
                             $user=$sqluserres->fetch_assoc();
                             $userid=$user["id"];
-                            date_default_timezone_set('Asia/Kolkata');
-                            $date = date('d-m-y h:i:s');
-                            $sqlustatus = "INSERT INTO marketplace.userstatus VALUES  ($userid,'$uname','$date','$date','active')";
-                            if ($conn->query($sqlustatus) === TRUE) {
-                                //echo "New record created successfully";
-                                header("location: marketlogin.php");
-                                exit();
-                            }
+                             //echo "New record created successfully";
+                            header("location: marketlogin.php");
+                            exit();                          
                         }
                      } else {
                         echo "Error: " . $sql . "<br>" . $conn->error;
@@ -140,7 +137,8 @@ include('facebook-login/facebook-login-setup.php');
         	        <input type="text" class="form-control input-lg" name="username" placeholder="Username" required="required">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control input-lg" name="password" placeholder="Password" required="required">
+                    <!-- <input type="password" class="form-control input-lg" name="password" placeholder="Password" required="required"> -->
+                    <input type="password" class="form-control input-lg" name="password" placeholder="Password" required="required" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
                 </div>
 		        <div class="form-group">
                     <input type="password" class="form-control input-lg" name="confirm_password" placeholder="Confirm Password" required="required">
@@ -168,7 +166,12 @@ include('facebook-login/facebook-login-setup.php');
                 echo '<button type="submit" class="btn btn-success btn-lg btn-block signup-btn">Sign Up</button>';
               }
               else{
-                 echo '<label style="color:red;">Usernaem already exists!</label>';
+                 if($submiterr=="passwords do not match")
+                 {
+                    echo '<label style="color:red;">'.$submiterr.'</label>';
+                    echo '<button type="submit" class="btn btn-success btn-lg btn-block signup-btn">Sign Up</button>';                   
+                 }
+                 if($submiterr=="Username already exists!")
                  echo '<div class="text-left"><a class="nav-link js-scroll-trigger active" href="./marketlogin.php">Login here</a></div>';
               }
             ?>
