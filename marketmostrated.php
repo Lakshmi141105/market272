@@ -103,8 +103,16 @@ if($sqltypesres->num_rows>0)
                 {                
                 $compres= $sqlprodres->fetch_assoc();
                 $rate=$compres["rating"];
-                $pname=$compres["productname"];
+                $pname=$compres["productname"];               
+                $sqlprodlink= "select * from marketplace.producthits where productname = '$pname' and type='$typename'";
+                $resprodlink = $conn->query($sqlprodlink);
                 $plink="";
+                if($resprodlink->num_rows>0)
+                {
+                    $plinkr=$resprodlink->fetch_assoc();
+                    $plink=$plinkr["prodlink"];
+                   // echo $plink;
+                }               
                 echo '
             <div class="row p-2 bg-white border rounded mt-2">
             
