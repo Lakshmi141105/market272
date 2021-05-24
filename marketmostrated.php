@@ -70,6 +70,79 @@ if(empty($_SESSION["uname"]))
         </div>
     </div>
 </div>
+<!-- show by products group by count -->
+<?php 
+
+//print_r($sqltypesres);
+if($sqltypesres->num_rows>0)
+{
+    $rowcount=$sqltypesres->num_rows;
+    for($ix=0;$ix<$rowcount;$ix++)
+    {
+        $typeres= $sqltypesres->fetch_assoc();
+        $typename= $typeres["type"];
+        echo '
+        <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <!-- Accordion -->
+      <div id="accordionExample" class="accordion shadow">
+
+        <!-- Accordion item 1 -->
+        <div class="card">
+          <div id="heading'.$ix.'" class="card-header bg-white shadow-sm border-0">
+            <h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#collapse'.$ix.'" aria-expanded="true" aria-controls="collapseOne" class="d-block position-relative text-dark text-uppercase collapsible-link py-2">Top rated products of '.$typename.'</a></h6>
+          </div>
+          <div id="collapse'.$ix.'" aria-labelledby="heading'.$ix.'" data-parent="#accordionExample" class="collapse show">
+            <div class="card-body p-5">';
+            $sqlcompratings="SELECT max(rating) AS rating,productname FROM marketplace.products WHERE type='$typename' group by productname ORDER BY rating DESC limit 5";
+            $sqlprodres=  $conn->query($sqlcompratings);
+             if( $sqlprodres->num_rows>0)
+             {
+                $rcnt=$sqlprodres->num_rows;
+                for($is=0;$is<$rcnt;$is++)
+                {                
+                $compres= $sqlprodres->fetch_assoc();
+                $rate=$compres["rating"];
+                $pname=$compres["productname"];
+                $plink="";
+                echo '
+            <div class="row p-2 bg-white border rounded mt-2">
+            
+            <div class="col-md-6 mt-1">
+                <h5>'.$pname.'</h5>
+                <div class="d-flex flex-row">
+                    <div class="ratings mr-2">';
+                    for($j=0;$j<$rating;$j++)
+                    {
+                        echo '<i class="fa fa-star"></i>';
+                    }
+                    echo '
+                    </div><span>'.$rate.'</span>
+                </div>
+              
+            </div>
+            <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+              
+                <h6 class="text-success">'.$typename.'</h6>
+                <div class="d-flex flex-column mt-4"><a class="btn btn-primary btn-sm" target="_blank" href="'.$plink.'">view product</a></div>
+            </div>
+            </div> ';    
+                }    
+            } 
+                echo '
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+  </div>      
+        
+        ';
+
+    }
+
+}
+?>
 
 </body>
 </html>
