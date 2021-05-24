@@ -335,3 +335,85 @@ body.is-loading #banner>.inner {
         padding: 8em 0 4em 0;
     }
 }
+
+.collapsible-link::before {
+    content: '';
+    width: 14px;
+    height: 2px;
+    background: #333;
+    position: absolute;
+    top: calc(50% - 1px);
+    right: 1rem;
+    display: block;
+    transition: all 0.3s;
+}
+
+
+/* Vertical line */
+
+.collapsible-link::after {
+    content: '';
+    width: 2px;
+    height: 14px;
+    background: #333;
+    position: absolute;
+    top: calc(50% - 7px);
+    right: calc(1rem + 6px);
+    display: block;
+    transition: all 0.3s;
+}
+
+.collapsible-link[aria-expanded='true']::after {
+    transform: rotate(90deg) translateX(-1px);
+}
+
+.collapsible-link[aria-expanded='true']::before {
+    transform: rotate(180deg);
+}
+
+@media (min-width: 992px) {
+    .col-lg-8 {
+        -ms-flex: 0 0 66.666667%!important;
+        flex: 0 0 66.666667%!important;
+        max-width: 63.666667%!important;
+    }
+}
+
+.icons i {
+    color: #b5b3b3;
+    border: 1px solid #b5b3b3;
+    padding: 6px;
+    margin-left: 4px;
+    border-radius: 5px;
+    cursor: pointer
+}
+
+.activity-done {
+    font-weight: 600
+}
+
+.list-group li {
+    margin-bottom: 12px
+}
+
+.list li {
+    list-style: none;
+    padding: 10px;
+    border: 1px solid #e3dada;
+    margin-top: 12px;
+    border-radius: 5px;
+    background: #fff
+}
+
+.checkicon {
+    color: green;
+    font-size: 19px
+}
+
+.date-time {
+    font-size: 12px
+}
+
+.profile-image img {
+    margin-left: 3px
+}
